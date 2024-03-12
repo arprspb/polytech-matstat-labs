@@ -13,34 +13,41 @@ $\alpha = 0.05$
 
 ### Нормальное распределение
  Нормальное распределение $N(M, \sigma^2), \{x_1, ..., x_n\}$ имеет функцию распределения
- $$F(x)=\frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{x}e^{-\frac{(t-M)^2}{2\sigma^2}}dt$$[ Доверительный интервал](http://fdisto.misis.ru/S/Hel/Laba/Matem/Ma_2SluVib/SluVib_01_02.htm) $$\overline{x_n} - \frac{S_n}{\sqrt{n}}t_{\frac{\alpha}{2}, n-1} \leq M \leq \overline{x_n} + \frac{S_n}{\sqrt{n}}t_{\frac{\alpha}{2}, n-1}$$
+ $$F(x)=\frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{x}e^{-\frac{(t-M)^2}{2\sigma^2}}dt$$ Доверительный интервал для $M$ 
+ $$\overline{x_n} - \frac{S_n}{\sqrt{n}}t_{1-\frac{\alpha}{2}, n-1} \leq M \leq \overline{x_n} + \frac{S_n}{\sqrt{n}}t_{1-\frac{\alpha}{2}, n-1}$$
  
 Выборку генерировать размера $n = 200$
 За k принять $k = [log_2200] + 1 \approx 8$
-$$ \frac{n-1}{\chi^2_{1-\frac{\alpha}{2},n-1}}S_n^2 \leq r^2 \leq \frac{n-1}{\chi^2_{\frac{\alpha}{2},n-1}}S_n^2$$
+
+Доверительный интервал для $\sigma^2$
+$$ \frac{n-1}{\chi^2_{1-\frac{\alpha}{2},n-1}}S_n^2 \leq \sigma^2 \leq \frac{n-1}{\chi^2_{\frac{\alpha}{2},n-1}}S_n^2$$
 ## Распределение Бернулли
 Распределение Бернулли $B(0.3; 200)$
 
-[Доверительный интервал](https://lfirmal.com/doveritelnye-intervaly-dlya-veroyatnosti-uspeha-v-sheme-bernulli/)
-$$\frac{m}{n} - \mu_\frac{\alpha}{2}\frac{\sqrt{m(n-m)}}{n} \leq P \leq \frac{m}{n} + \mu_\frac{\alpha}{2}\frac{\sqrt{m(n-m)}}{n}$$
+Доверительный интервал
+$$\frac{m}{n} - \mu_\frac{\alpha}{2}\frac{\sqrt{m(1-\frac{m}{n})}}{n} \leq P \leq \frac{m}{n} + \mu_\frac{\alpha}{2}\frac{\sqrt{m(1-\frac{m}{n})}}{n}$$
 Для выборки размера n= 50 $$ B(0.3; 50) $$
 Можно посчитать отдельно оценки $P_{ниж}$ и $P_{верх}$, такие что $P_{ниж} \leq P \leq P_{верх}$
-$$ \hat{P}_{ниж} = \frac{n}{n+\mu_\frac{\alpha}{2}}(\frac{m}{n} + \frac{\mu_{\frac{\alpha}{2}}^2}{2n}-\mu_{\frac{\alpha}{2}}\sqrt{\frac{m}{n}(1-\frac{m}{n})+\frac{\mu_{\frac{\alpha}{2}}^2}{2n}})$$
-$$ \hat{P}_{верх} = \frac{n}{n+\mu_\frac{\alpha}{2}}(\frac{m}{n} + \frac{\mu_{\frac{\alpha}{2}}^2}{2n}+ \mu_{\frac{\alpha}{2}}\sqrt{\frac{m}{n}(1-\frac{m}{n})+\frac{\mu_{\frac{\alpha}{2}}^2}{2n}})$$
+[Доверительный интервал по формуле Уилсона](https://kerchtt.ru/doveritelnyi-interval-doveritelnaya-veroyatnost/):
+$$ \hat{P}_{ниж} = \frac{\frac{m}{n} + \frac{\mu_{\frac{\alpha}{2}}^2}{2n} -\mu_{\frac{\alpha}{2}}\sqrt{\frac{m}{n^2}(1-\frac{m}{n})+\frac{\mu_{\frac{\alpha}{2}}^2}{4n^2}}}{1+\frac{\mu_\frac{\alpha}{2}^2}{n}}$$
+$$ \hat{P}_{верх} = \frac{\frac{m}{n} + \frac{\mu_{\frac{\alpha}{2}}^2}{2n} +\mu_{\frac{\alpha}{2}}\sqrt{\frac{m}{n^2}(1-\frac{m}{n})+\frac{\mu_{\frac{\alpha}{2}}^2}{4n^2}}}{1+\frac{\mu_\frac{\alpha}{2}^2}{n}}$$
 ## Распределение Пуассона
 Распределение Пуассона $P(\theta)$ имеет функцию распределения распределения:
 $$ P(\theta) =\frac{\theta^k}{k!}e^{-\theta} $$
 И среднее и дисперсия равны $\theta$
 
 Доверительный интервал:
-$$ \overline{x_n} - \frac{\sqrt{\overline{x_n}}}{\sqrt{n}}(?) \leq \theta \leq \overline{x_n} + \frac{\sqrt{\overline{x_n}}}{\sqrt{n}}\mu_{\frac{\alpha}{2}}$$
+$$ \overline{x_n} - \frac{\sqrt{\overline{x_n}}}{\sqrt{n}}\mu_{\frac{\alpha}{2}} \leq \theta \leq \overline{x_n} + \frac{\sqrt{\overline{x_n}}}{\sqrt{n}}\mu_{\frac{\alpha}{2}}$$
 Выборку генерировать размера $n=200$
 ## Экспоненциальное распределение
 Экспоненциальное распределение имеет имеет следующую плотность распределения
-$$ \lambda e^{-\lambda} , x > 0$$
+$$ \lambda e^{-\lambda x} , x > 0$$
 $$ 0, x \leq 0 $$
+Где $\lambda = \frac{1}{\nu}$, $\nu$ - экспоненциальный параметр scale в `scipy.stats.expon.rvs(scale, n)`.
 Доверительный интервал
-$$ \frac{1}{\overline{x_n}} - \frac{\mu_{\frac{\alpha}{2}}}{\sqrt{n\overline{x_n}}} \leq \lambda \leq \frac{1}{\overline{x_n}} + \frac{\mu_{\frac{\alpha}{2}}}{\sqrt{n\overline{x_n}}}$$
+$$ \frac{1}{\overline{x_n}} + \frac{\mu_{\frac{\alpha}{2}}}{\sqrt{n\overline{x_n}}}\leq \nu \leq \frac{1}{\overline{x_n}} - \frac{\mu_{\frac{\alpha}{2}}}{\sqrt{n\overline{x_n}}}  $$
+
+$$ \frac{1}{\frac{1}{\overline{x_n}} - \frac{\mu_{\frac{\alpha}{2}}}{\sqrt{n\overline{x_n}}} }\leq \lambda \leq \frac{1}{\frac{1}{\overline{x_n}} + \frac{\mu_{\frac{\alpha}{2}}}{\sqrt{n\overline{x_n}}}}$$
 # Часть 2. Ядерные оценки
 ## Ядро
 Исходная выборка "портится" другим распределением
@@ -55,7 +62,6 @@ $$ k(x) = \frac{e^{-\frac{x^2}{2}}}{\sqrt{2\pi}} $$
 k(x) задаётся системой
 $$ \frac{1}{2}, |x|\leq 1 $$
 $$ 0, |x| > 1 $$
-??? Или $\frac{1}{2a}$ при $x\leq a$ ???
 ## Ядерный оценщик плотности
 Ядерный оценщик плотности равен
 $$ \hat{f}(x) = \frac{1}{n}\sum_{j=1}^nk_h(x-x_j) $$
@@ -63,7 +69,7 @@ $$ \hat{f}(x) = \frac{1}{n}\sum_{j=1}^nk_h(x-x_j) $$
 $$ k_h(x) = \frac{1}{h}k(\frac{x}{h}) $$
 h называется шириной окна
 
-С учётом h:
+С учётом $k_h$:
 $$ \hat{f}(x) = \frac{1}{hn}\sum_{j=1}^nk(\frac{x-x_j}{h}) $$
 Где k - дельтоорбразное `что-то там`, оно стремится к дельта функции при $h \to 0$
 
